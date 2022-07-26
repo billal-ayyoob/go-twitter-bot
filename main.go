@@ -43,7 +43,7 @@ func  twitterClient(creds *Credentials)(*twitter.Client, error){
 		IncludeEmail: twitter.Bool(true),
 	}
 
-	//we cn retrieve the user and verify if the credentials
+	//we can retrieve the user and verify if the credentials
 	//we have used successfully allow us to login
 	user, _, err := client.Accounts.VerifyCredentials(verifyParams)
 	if err != nil {
@@ -63,7 +63,34 @@ func main(){
 		ConsumerSecret: os.Getenv("CONSUMER_SECRET")
 	}
 
+	const DaysTotal int = 90
+	var remainingDays unit = 90
+	challenge := "#90DaysOfDevOps"
+
+	fmt.Printf("Welcome to the %v challenge. \nThis challenge consists of %v days\n", challenge, DaysTotal)
+
+	var TwitterName string
+	var DaysCompleted unit
+
+	fmt.Println("Enter Your Twitter Handle: ")
+	fmt.Scanln(&TwitterName)
+
+	//Taking user input
+	fmt.Println("How many days you have completed?:")
+	fmt.Scanln(&DaysCompleted)
+
+	//Calculate remaining days
+	remainingDays = remainingDays - DaysCompleted
+
 	client, err := getClient(&creds)
+	if err != nil {
+		log.Println("Error getting Twitter Client, this is expected if you didn't supply your Twitter API tokens")
+		log.Println(err)
+	}
+
+	message := fmt.Sprintf("Hey I am %v I have been doing the %v days and I have %v days left", TwitterName, challenge, DaysCompleted, remainingDays)
+	tweet, resp, err := client.Statuses.Update(message, nil)
+
 	if err != nil {
 		log.Println(err)
 	}
