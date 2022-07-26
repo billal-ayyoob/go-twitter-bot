@@ -77,6 +77,7 @@ func main(){
 
 	//Taking user input
 	fmt.Println("How many days you have completed?:")
+	//13th day task
 	fmt.Scanln(&DaysCompleted)
 
 	//Calculate remaining days
