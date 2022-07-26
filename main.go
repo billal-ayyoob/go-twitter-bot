@@ -29,7 +29,7 @@ func  twitterClient(creds *Credentials)(*twitter.Client, error){
 
 	//Passing in consumer key (API key) and Cosumer Secret
 	// (API Secret)
-	config := oauth1.NewConfig(creds.ConsumerKey, creds.CosumerSecret)
+	config := oauth1.NewConfig(creds.ConsumerKey, creds.ConsumerSecret)
 
 	//Passing in the Access Token and Access Toke Secret
 	token := oauth1.NewToken(creds.AccessToken, creds.AccessTokenSecret)
@@ -43,8 +43,8 @@ func  twitterClient(creds *Credentials)(*twitter.Client, error){
 		IncludeEmail: twitter.Bool(true),
 	}
 
-	//we can retrieve the user and verify if the credentials
-	//we have used successfully allow us to login
+	//Retrieving the user and verify if the credentials
+	//we have used successfully allows us to login
 	user, _, err := client.Accounts.VerifyCredentials(verifyParams)
 	if err != nil {
 		return nil, err
@@ -88,7 +88,7 @@ func main(){
 		log.Println(err)
 	}
 
-	message := fmt.Sprintf("Hey I am %v I have been doing the %v days and I have %v days left", TwitterName, challenge, DaysCompleted, remainingDays)
+	message := fmt.Sprintf("Hey, I am %v. I have been doing the %v days and I have %v days left", TwitterName, challenge, DaysCompleted, remainingDays)
 	tweet, resp, err := client.Statuses.Update(message, nil)
 
 	if err != nil {
