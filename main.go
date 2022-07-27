@@ -1,13 +1,13 @@
 package main
 
-import {
+import (
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
-}
+)
 
 
 //Storing credentials for Twitter RESTful API
@@ -25,7 +25,7 @@ type Credentials struct {
 //contains everything needed to authenticate and return a pointer
 //to twiter client or an error
 
-func  twitterClient(creds *Credentials)(*twitter.Client, error){
+func  twitterClient(creds *Credentials) (*twitter.Client, error) {
 
 	//Passing in consumer key (API key) and Cosumer Secret
 	// (API Secret)
@@ -54,23 +54,23 @@ func  twitterClient(creds *Credentials)(*twitter.Client, error){
 	return client, nil
 }
 
-func main(){
+func main() {
 	fmt.Println("Go-Twitter-Bot v0.01")
 	creds := Credentials{
 		AccessToken: os.Getenv("ACCESS_TOKEN"),
 		AccessTokenSecret: os.Getenv("ACCESS_TOKEN_SECRET"),
 		ConsumerKey: os.Getenv("CONSUMER_KEY"),
-		ConsumerSecret: os.Getenv("CONSUMER_SECRET")
+		ConsumerSecret: os.Getenv("CONSUMER_SECRET"),
 	}
 
 	const DaysTotal int = 90
-	var remainingDays unit = 90
+	var remainingDays uint = 90
 	challenge := "#90DaysOfDevOps"
 
 	fmt.Printf("Welcome to the %v challenge. \nThis challenge consists of %v days\n", challenge, DaysTotal)
 
 	var TwitterName string
-	var DaysCompleted unit
+	var DaysCompleted uint
 
 	fmt.Println("Enter Your Twitter Handle: ")
 	fmt.Scanln(&TwitterName)
@@ -83,7 +83,7 @@ func main(){
 	//Calculate remaining days
 	remainingDays = remainingDays - DaysCompleted
 
-	client, err := getClient(&creds)
+	client, err := twitterClient(&creds)
 	if err != nil {
 		log.Println("Error getting Twitter Client, this is expected if you didn't supply your Twitter API tokens")
 		log.Println(err)
